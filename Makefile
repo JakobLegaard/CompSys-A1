@@ -29,6 +29,10 @@ record.o: record.c
 sort.o: sort.c
 	$(CC) -c $< $(CFLAGS)
 
+coord_query_kdtree: coord_query_kdtree.o coord_query.o record.o timing.o
+	$(CC) $(CFLAGS) -o $@ $^
+
+
 test: $(TESTS)
 	@set e; for test in $(TESTS); do echo ./$$test; ./$$test; done
 
@@ -42,5 +46,6 @@ planet-latest-geonames.tsv:
 ../src.zip:
 	make clean
 	cd .. && zip src.zip -r src
+
 
 .SECONDARY:

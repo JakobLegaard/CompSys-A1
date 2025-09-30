@@ -1,6 +1,12 @@
-# gitignore everything with no extension
-*
-!*.*
-!Makefile
 
 *.o
+*.zip
+
+
+*.tsv
+planet-latest_geonames.tsv
+
+
+*~
+.DS_Store
+.vscode/
