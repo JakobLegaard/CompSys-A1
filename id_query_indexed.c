@@ -5,7 +5,6 @@
 #include <stdint.h>
 #include <errno.h>
 #include <assert.h>
-
 #include "record.h"
 #include "id_query.h"
 
@@ -22,29 +21,34 @@ struct indexed_data {
 int compare(const void *a, const void *b) {
     const struct index_record *ia = (const struct index_record *)a;
     const struct index_record *ib = (const struct index_record *)b;
-    if (ia->osm_id < ib->osm_id) {
+
+    if (ia->osm_id < ib->osm_id) 
         return -1;
-    } else if (ia->osm_id > ib->osm_id) {
+    if (ia->osm_id > ib->osm_id) 
         return 1;
-    } else {
-        return 0;
-    }
+
+    return 0;
 }
 
 struct indexed_data* mk_indexed(struct record* rs, int n){
-    struct indexed_data *data = malloc(sizeof(*data));
+  struct indexed_data *data = malloc(sizeof(struct indexed_data));
+    if (!data) 
+        return NULL;
+    data->irs = malloc(n * sizeof(struct index_record));
     if (!data->irs) {
         free(data);
         return NULL;
     }
-    data->n = n;
+    data -> n = n;
     for (int i = 0; i < n; i++) {
         data->irs[i].osm_id = rs[i].osm_id;
         data->irs[i].record = &rs[i];
     }
-    qsort(data->irs, n, sizeof(struct index_record), compare);
+    qsort(data -> irs, n , sizeof(struct index_record), compare);
+
     return data;
 }
+
 
 void free_indexed(struct indexed_data* data){
     if (data) {
@@ -53,8 +57,8 @@ void free_indexed(struct indexed_data* data){
     }
 }
 
-const struct record* lookup_indexed(struct indexed_data *data,
-int64_t needle){
+const struct record* lookup_indexed(struct indexed_data *data, int64_t needle)
+{
     for (int i = 0; i < data->n; i++) {
         if (data->irs[i].osm_id == needle) {
             return data->irs[i].record;
