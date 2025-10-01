@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <sys/time.h>  
 #include "record.h"
 #include "coord_query.h"
 

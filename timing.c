@@ -1,5 +1,6 @@
 #include "timing.h"
 #include <sys/time.h>
+#include <stddef.h> 
 #include <stdint.h>
 
 uint64_t microseconds(void) {
