@@ -1,6 +1,8 @@
 #ifndef TIMING_H
 #define TIMING_H
 
-long get_usec(void);
+#include <stdint.h>
+
+uint64_t microseconds(void);
 
 #endif

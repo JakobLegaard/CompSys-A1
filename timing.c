@@ -1,9 +1,9 @@
 #include "timing.h"
 #include <sys/time.h>
-#include <stddef.h>
+#include <stdint.h>
 
-long get_usec(void) {
+uint64_t microseconds(void) {
   struct timeval tv;
   gettimeofday(&tv, NULL);
-  return (long)tv.tv_sec * 1000000L + (long)tv.tv_usec;
+  return (uint64_t)tv.tv_sec * 1000000 + (uint64_t)tv.tv_usec;
 }

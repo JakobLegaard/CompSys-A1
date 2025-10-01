@@ -11,10 +11,10 @@ all: $(PROGRAMS)
 random_ids: random_ids.o record.o
 	gcc -o $@ $^ $(LDFLAGS)
 
-id_query_%: id_query_%.o record.o id_query.o
+id_query_%: id_query_%.o record.o id_query.o timing.o
 	gcc -o $@ $^ $(LDFLAGS)
 
-coord_query_%: coord_query_%.o record.o coord_query.o
+coord_query_%: coord_query_%.o record.o coord_query.o timing.o
 	gcc -o $@ $^ $(LDFLAGS)
 
 id_query.o: id_query.c
@@ -49,3 +49,6 @@ planet-latest-geonames.tsv:
 
 
 .SECONDARY:
+
+timing.o: timing.c timing.h
+	$(CC) -c $< $(CFLAGS)
